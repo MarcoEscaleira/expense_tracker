@@ -4,6 +4,7 @@ const money_minus = document.getElementById('money-minus');
 const list = document.getElementById('list');
 const form = document.getElementById('form');
 const text = document.getElementById('text');
+const selectType = document.getElementById('select-type');
 const amount = document.getElementById('amount');
 
 // const dummyTransactions = [
@@ -26,11 +27,13 @@ function addTransaction(e) {
 
   if (text.value.trim() === '' || amount.value.trim() === '') {
     alert('Please add a text and amount');
+  } else if (selectType.value.trim() === '') {
+    alert('Please choose an type of transaction');
   } else {
     const transaction = {
       id: generateID(),
       text: text.value,
-      amount: +amount.value
+      amount: selectType.value === "income" ? +amount.value : -amount.value
     };
 
     transactions.push(transaction);
@@ -42,6 +45,7 @@ function addTransaction(e) {
     updateLocalStorage();
 
     text.value = '';
+    selectType.value = '';
     amount.value = '';
   }
 }
